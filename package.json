@@ -1,0 +1,24 @@
+{
+  "name": "grace",
+  "version": "1.0.0",
+  "description": "a project created to learn about programming",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fcorobsondev/grace.git"
+  },
+  "author": "Robson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fcorobsondev/grace/issues"
+  },
+  "homepage": "https://github.com/fcorobsondev/grace#readme",
+  "dependencies": {
+    "next": "^15.3.5",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  }
+}
