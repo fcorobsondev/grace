@@ -81,3 +81,29 @@ No CommonJS é necessário seguir os seguintes passos:
    jest --watch
 
 TDD = Primeiro atira a flecha e depois muda o alvo.
+
+Para organização podemos separar os tests em unit e integration.
+
+## Como criar uma API de Status
+
+No next.js, por padrão, a caminho comum para a api é uma pasta api dentro de pages.
+
+1. Para criar uma api de status é necessário criar um arquivo status.js dentro da pasta api/v1/status (para integrar com o versionamento por pastas), criar uma função de status e exportar ela por padrão:
+
+```
+function status(request, response) {
+  response.status(200).json({ chave: "Está tudo ok por aqui" });
+}
+
+export default status;
+```
+
+2. Depois criaremos um teste get na integration no caminho /api/v1/status com o nome get.test.js
+   async x => await fetch("").response deve retornar o código 200, segue a maneira de escrever o código:
+
+```
+test("GET to /api/v1/status should return 200", async () => {
+  const response = await fetch("http://localhost:3000/api/v1/status");
+  expect(response.status).toBe(200);
+});
+```
