@@ -37,3 +37,47 @@ Requisito: Ter uma página (criar arquivo index.js -> criar função -> retornar
 4. Criar um script no package.json para que o prettier faça uma varredura em todo o código, em busca de padronizar o código. "lint:check": "prettier --check ." "lint:write": "prettier --write ."
 5. Definir o prettier como default formatter, definir o format on save e remover o autosave.
 6. criar o .prettierignore e adicionar o .next, pois não precisamos corrigir a organização de seu código padrão. O node_modules é ignorado por padrão.
+
+## Definição da Arquitetura de Software e Organização de Pastas e Arquivos.
+
+Arquitetura é o escopo e sua interação, geralmente utiliza-se o MVC (Model-View-Controller)
+📦 root
+┣ 📂 pages
+┣ 📂 public
+┣ 📂 scripts
+┣ 📂 models
+┣ 📂 tests
+┣ 📂 infra // Conectores, migrações e automações da Infraestrutura
+┃ ┣ 📂 devops
+┃ ┣ 📂 migrations
+┃ ┗ 📜 postgres.js
+
+## Testes Automatizados
+
+1. Instalar um test runner, geralmente utiiza-se o Jest. `npm install --save-dev jest`
+2. Definir script para rodar o test runner uma única vez ou no modo watch.
+
+### Criando um model, importando e exportando no estilo ES ou Common JS.
+
+No ES é necessário seguir os seguintes passos:
+
+1. Primeiramente deve ser adicionado o seguinte atributo ao package.json:
+   "type":"module"; Sem ele, então o node.js buscará o common js
+2. criar a função e exportar atribuindo uma constante a ela.
+   const \_somar = somar;
+   export {\_somar as somar};
+3. Importar no arquivo que quero usar, sem omitir a extensão.
+   import somar from "caminho";
+4. Para usar o Jest dessa maneira, precisamos executar o comando:
+   node --experimental-vm-modules node_modules/jest/bin/jest.js --watch
+
+No CommonJS é necessário seguir os seguintes passos:
+
+1. Criar a função e exportar usando o seguinte comando.
+   exports.somar = somar;
+2. Para importar deve ser feito o seguinte comando:
+   const { somar } = require('./somar');
+3. Para usar o Jest basta escrever
+   jest --watch
+
+TDD = Primeiro atira a flecha e depois muda o alvo.
