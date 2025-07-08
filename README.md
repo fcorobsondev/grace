@@ -223,3 +223,124 @@ services:
    Agora nosso banco de dados está configurado e já sabemos como entrar nele usando o client do postgres.
 
 9. Para finalizar, iremos criar uma pasta infra no compose, para organizar nosso projeto de maneira adequada, mas para rodar o docker compose deverá ser usado o seguinte comando `docker compose up --file /infra/compose.yaml up`
+
+### Abrindo conexão com o banco de dados e enviar queries
+
+1. Agora precisaremos do pg, e iremos instalá-lo por meio do comando `npm i pg`
+
+2. Agora iremos escrever um módulo database.js dentro da pasta infra e reformular o arquivo index.js da pasta status para a obtenção de algumas informações, no index.js do status iremos importar o database.js.
+
+o arquivo database.js:
+
+```js
+import { Client } from "pg";
+
+async function query(queryObject) {
+  const client = new Client();
+  await client.connect();
+  const result = await client.query(queryObject);
+  await client.end();
+  return result;
+}
+
+export default {
+  query: query,
+};
+```
+
+o arquivo index.js do status
+
+```js
+import database from "../../../../infra/database.js";
+
+async function status(request, response) {
+  const result = await database.query("SELECT 1+1;");
+  console.log(result);
+  response.status(200).json({ situation: "Função de Status" });
+}
+
+export default status;
+```
+
+Nesse caso há erro, pois não temos as variáveis de ambiente para fazer conexões.
+
+3. Iremos definir no new Client do database.js os objetos de configuração:
+
+```js
+const client = new Client({
+  host: "localhost",
+  port: 5432,
+  user: "postgres",
+  database: "postgres",
+  password: "local_password",
+});
+```
+
+Agora conseguimos fazer uma query com sucesso
+
+## Configurando as variáveis de ambiente
+
+### Criando as variáveis de ambiente no código
+
+1. Iremos baixar o módulo que encaminha variáveis de ambiente de um arquivo .env para o process.env, depois basta criar o arquivo .env na pasta raíz.
+2. Devemos substituir o local que iremos trocar as variáveis por process.env.VAR
+
+```js
+const client = new Client({
+  host: process.env.POSTGRES_HOST,
+  port: process.env.POSTGRES_PORT,
+  user: process.env.POSTGRES_USER,
+  database: process.env.POSTGRES_DB,
+  password: process.env.POSTGRES_PASSWORD,
+});
+```
+
+3. Devemos atribuir um valor para a variável do ambiente no .env.
+
+```.env
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_USER=postgres
+POSTGRES_DB=postgres
+POSTGRES_PASSWORD=local_password
+```
+
+Agora temos variáveis de ambiente configuradas no nosso código.
+
+### Vinculando as variáveis de ambiente com o docker
+
+1. Primeiramente iremos reconfigurar nossas variáveis, desse modo iremos mudar nosso .env.
+
+Saindo de:
+
+```.env
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_USER=postgres
+POSTGRES_DB=postgres
+POSTGRES_PASSWORD=local_password
+```
+
+Para:
+
+```.env
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_USER=local_user
+POSTGRES_DB=local_db
+POSTGRES_PASSWORD=local_password
+```
+
+2. Agora iremos substituir o environment do compose.yaml da pasta infra e substituí-lo por um env_file que deve ter como atributo uma lista com o caminho do arquivo .env.
+
+```yaml
+services:
+  database:
+    image: "postgres:16.0-alpine3.18"
+    env_file:
+      - ../.env
+    ports:
+      - "5432:5432"
+```
+
+3. Agora, para atualizar as variáveis, precisamos derrubar o docker e o server e subir ambos denovo. Desse modo está definido as variáveis de ambiente.

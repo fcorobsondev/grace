@@ -117,3 +117,25 @@ Tabela comparando diferentes DBMS, incluindo relacionais e não relacionais.
 | **Dockerfile** | Arquivo de texto com instruções para criar uma imagem Docker.                          | Define o que vai ter dentro da imagem: SO, dependências, código etc.  | Como uma **receita de bolo** para criar uma imagem.    |
 | **Image**      | Um snapshot (cópia) imutável de um ambiente com tudo o que a aplicação precisa.        | Serve para criar containers sempre iguais, portáveis e reproduzíveis. | Como um **molde** para criar múltiplos containers.     |
 | **Container**  | Instância em execução de uma imagem. Leve, isolado e com tudo que a aplicação precisa. | Executa a aplicação de forma isolada e portátil.                      | Como um **bolo feito com a receita da imagem**.        |
+
+Query = Comando SQL que você usa para conversar com o banco de dados.
+
+| Tipo de Query | Descrição                                | Exemplo SQL                                            | Para que serve                           |
+| ------------- | ---------------------------------------- | ------------------------------------------------------ | ---------------------------------------- |
+| SELECT        | Consulta dados em uma tabela             | SELECT \* FROM usuarios;                               | Buscar informações                       |
+| INSERT        | Insere novos dados                       | INSERT INTO usuarios (nome, idade) VALUES ('Ana', 30); | Adicionar um novo registro               |
+| UPDATE        | Atualiza dados existentes                | UPDATE usuarios SET idade = 31 WHERE nome = 'Ana';     | Modificar dados de um registro existente |
+| DELETE        | Remove dados                             | DELETE FROM usuarios WHERE nome = 'Ana';               | Apagar um ou mais registros              |
+| CREATE        | Cria tabelas, bancos ou outros objetos   | CREATE TABLE usuarios (id SERIAL, nome TEXT);          | Criar estruturas no banco de dados       |
+| DROP          | Exclui tabelas, bancos ou objetos        | DROP TABLE usuarios;                                   | Apagar estruturas do banco de dados      |
+| WHERE         | Filtro usado em SELECT, UPDATE ou DELETE | SELECT \* FROM usuarios WHERE idade > 18;              | Restringir os dados afetados pela query  |
+
+| Característica               | Hardcoded (Valor fixo no código)                    | Variáveis de Ambiente (Environment Variables)               |
+| ---------------------------- | --------------------------------------------------- | ----------------------------------------------------------- |
+| **Definição**                | Valor escrito diretamente no código                 | Valor externo passado ao programa via o ambiente do sistema |
+| **Exemplo**                  | `const dbPass = "123456";`                          | `const dbPass = process.env.DB_PASSWORD;`                   |
+| **Flexibilidade**            | Baixa — precisa mudar o código para alterar o valor | Alta — basta mudar a variável no ambiente                   |
+| **Segurança**                | Baixa — senhas e tokens ficam visíveis no código    | Alta — valores sensíveis ficam fora do código-fonte         |
+| **Facilidade de manutenção** | Difícil — exige reescrever e fazer novo deploy      | Fácil — muda-se o valor sem alterar o código                |
+| **Boa prática?**             | ❌ Não é recomendada                                | ✅ Altamente recomendada                                    |
+| **Uso comum**                | Projetos pequenos, testes rápidos                   | Produção, ambientes profissionais                           |
