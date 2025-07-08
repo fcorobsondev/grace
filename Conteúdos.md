@@ -1,3 +1,9 @@
+# Comparações e Conceitos de Desenvolvimento Web
+
+## Node.js vs Next.js
+
+Essa tabela compara as principais diferenças entre Node.js e Next.js, destacando suas funções, dependências e casos de uso.
+
 | **Característica**  | **Node.js**                        | **Next.js**                           |
 | ------------------- | ---------------------------------- | ------------------------------------- |
 | **O que é?**        | Ambiente de execução               | Framework de React                    |
@@ -6,11 +12,23 @@
 | **Roda onde?**      | Somente no servidor                | No cliente (navegador) e servidor     |
 | **Exemplos de uso** | APIs com Express, CLIs, automações | Sites, blogs, dashboards, e-commerces |
 
+---
+
+## Principais Pacotes do Next.js
+
+Aqui são apresentados os pacotes essenciais usados em aplicações Next.js, com suas funções e obrigatoriedade.
+
 | **Pacote**  | **Tipo**                | **Função Principal**                                                                 | **É obrigatório no Next.js?** |
 | ----------- | ----------------------- | ------------------------------------------------------------------------------------ | ----------------------------- |
 | `next`      | Framework               | Fornece a estrutura completa do projeto, roteamento, SSR, geração de páginas e APIs. | ✅ Sim                        |
 | `react`     | Biblioteca de UI        | Cria interfaces com componentes reutilizáveis. É o núcleo do front-end.              | ✅ Sim                        |
 | `react-dom` | Renderizador para o DOM | Conecta o React ao navegador, renderizando os componentes na tela.                   | ✅ Sim                        |
+
+---
+
+## Tipos de Testes em Programação
+
+Essa tabela mostra os principais tipos de testes em programação, explicando o que eles validam, vantagens e desvantagens.
 
 | Tipo de Teste                | O que Testa                        | Foco Principal                                  | Ferramentas Comuns                | Vantagens                               | Desvantagens                               |
 | ---------------------------- | ---------------------------------- | ----------------------------------------------- | --------------------------------- | --------------------------------------- | ------------------------------------------ |
@@ -18,7 +36,11 @@
 | **Integration (Integração)** | Conexão entre dois ou mais módulos | Verificar se partes do sistema funcionam juntas | Jest, Mocha, Supertest, MSW       | Detecta problemas entre módulos         | Mais lento que testes unitários            |
 | **E2E (End-to-End)**         | Todo o fluxo da aplicação          | Simular o comportamento do usuário real         | Cypress, Playwright, Selenium     | Garante que tudo funciona como esperado | Lento, pode ser frágil e difícil de manter |
 
-Endpoint é o ponto final de algo -> endereço final ou API
+---
+
+## API vs Interface do Usuário (UI)
+
+Aqui está a comparação entre o que é uma API e o que é a interface de usuário, com exemplos práticos.
 
 | Aspecto                     | API (Application Programming Interface)                         | Interface do Usuário (User Interface - UI)              |
 | --------------------------- | --------------------------------------------------------------- | ------------------------------------------------------- |
@@ -29,16 +51,34 @@ Endpoint é o ponto final de algo -> endereço final ou API
 | **Visível para o usuário?** | Não. Opera nos bastidores.                                      | Sim. É o que o usuário vê na tela.                      |
 | **Objetivo**                | Permitir que softwares se comuniquem de forma padronizada.      | Permitir que humanos interajam com o software.          |
 
+---
+
+## Comandos `curl` e Interpretação
+
+Comparação de comandos `curl`, explicando o que eles fazem e quando são úteis.
+
 | Comando               | O que Faz                                               | O que Mostra                                                  | Ideal para...                          |
 | --------------------- | ------------------------------------------------------- | ------------------------------------------------------------- | -------------------------------------- |
 | `curl site`           | Faz uma requisição simples (GET) para o site            | Apenas o corpo (conteúdo HTML) da resposta                    | Ver rapidamente o conteúdo da página   |
 | `curl site --verbose` | Faz a mesma requisição, **mas com detalhes adicionais** | Corpo **+** cabeçalhos de requisição e resposta, status, etc. | Debug, entender o que está acontecendo |
+
+---
+
+## Exemplos de Requisições `curl`
+
+Aqui vemos se uma requisição `curl` vai funcionar, com base no uso correto de IPs e cabeçalhos.
 
 | Situação                                         | Vai funcionar corretamente? | Por quê?                                                           |
 | ------------------------------------------------ | --------------------------- | ------------------------------------------------------------------ |
 | `curl 123.45.67.89`                              | ❌ Provavelmente não        | Não informa qual site está sendo pedido ao servidor                |
 | `curl exemplo.com`                               | ✅ Sim                      | O `curl` resolve o DNS e envia o cabeçalho `Host` corretamente     |
 | `curl --header "Host: exemplo.com" 123.45.67.89` | ✅ Sim                      | Você força o cabeçalho `Host`, mesmo acessando pelo IP diretamente |
+
+---
+
+## Métodos HTTP
+
+Tabela explicando os principais métodos HTTP, seu uso, se enviam corpo e se são idempotentes.
 
 | Método  | O que faz                                 | Usado para...                              | Envia corpo (body)? | Idempotente? | Exemplo prático                            |
 | ------- | ----------------------------------------- | ------------------------------------------ | ------------------- | ------------ | ------------------------------------------ |
@@ -49,3 +89,22 @@ Endpoint é o ponto final de algo -> endereço final ou API
 | DELETE  | Remove um recurso                         | Excluir dados do servidor                  | ❌ (geralmente)     | ✅ Sim       | `DELETE /produtos/45`                      |
 | OPTIONS | Informa quais métodos o servidor aceita   | Pré-verificação em requisições CORS        | ❌ Simples          | ✅ Sim       | Usado automaticamente por browsers         |
 | HEAD    | Igual ao GET, mas sem o corpo da resposta | Verificar headers (ex: tamanho, cache)     | ❌ Não              | ✅ Sim       | `HEAD /arquivo.zip`                        |
+
+---
+
+## Comparação de DBMS (Sistemas de Gerenciamento de Banco de Dados)
+
+Tabela comparando diferentes DBMS, incluindo relacionais e não relacionais.
+
+| DBMS           | Tipo                   | Linguagem               | Pontos Fortes                                                             | Casos de Uso Típicos                  | Licença                 |
+| -------------- | ---------------------- | ----------------------- | ------------------------------------------------------------------------- | ------------------------------------- | ----------------------- |
+| **PostgreSQL** | Relacional             | SQL                     | Altamente robusto, suporte a JSON, extensível, open source                | Aplicações complexas, análises, APIs  | Open Source             |
+| **MySQL**      | Relacional             | SQL                     | Muito popular, rápido para leitura, fácil de usar                         | Sites, blogs, apps web                | Open Source (Oracle)    |
+| **SQLite**     | Relacional             | SQL                     | Leve, sem servidor, embutido em aplicações                                | Apps mobile, desktop, IoT             | Public Domain           |
+| **SQL Server** | Relacional             | T-SQL                   | Integração com o ecossistema Microsoft, ferramentas gráficas poderosas    | Grandes sistemas corporativos         | Comercial               |
+| **Oracle DB**  | Relacional             | PL/SQL                  | Alta performance, escalável, muito usado em bancos e grandes empresas     | Sistemas financeiros, bancos          | Comercial               |
+| **MongoDB**    | Não Relacional         | JSON-like (Mongo Query) | Armazena documentos JSON, altamente escalável, flexível                   | Apps modernas, Big Data, APIs         | Open Source / Comercial |
+| **Redis**      | Não Relacional         | Comandos próprios       | Extremamente rápido (em memória), usado como cache ou broker              | Cache, filas, sessão, contadores      | Open Source             |
+| **Firebase**   | Não Relacional         | NoSQL (JSON)            | Backend como serviço, sincronização em tempo real                         | Apps mobile/web em tempo real         | Proprietário (Google)   |
+| **Cassandra**  | Não Relacional         | CQL                     | Alta escalabilidade e disponibilidade, projetado para grandes volumes     | Big Data, IoT, analytics distribuídos | Open Source             |
+| **Neo4j**      | Não Relacional (Graph) | Cypher                  | Otimizado para dados conectados (grafos), ótimo para redes sociais, mapas | Grafos, redes sociais, recomendação   | Open Source / Comercial |
