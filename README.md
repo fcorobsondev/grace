@@ -167,4 +167,59 @@ No Next.js, por padrão, o caminho comum para a API é uma pasta `api` dentro de
    });
    ```
 
-   ------------------------------------------------------ Fim da Fase 1 - Até aula 16 -------------------------------------------
+   ------------------------------------------------------ Fim da Fase 1 - Até aula 16 ------------------------------------------------------
+
+## Levantando o Banco de Dados
+
+-Banco de dados selecionado (Postgres)
+-Query (módulo PG (node-pg))
+-Migrations (node-pg-migrate)
+
+### Configurando o docker para o banco de dados
+
+Para poder rodar um banco de dados no computador bem como outras coisas de maneira performática, é necessário usar os containers, por meio do docker.
+
+1. Deve ser criado o arquivo compose.yaml na raiz do projeto.
+2. Na configuração inicial iremos definir as imagens que vão ser utilizadas, nesse caso como vamos utilizar apenas o database, então buscamos a imagem do postgres no dockerhub:
+
+```
+services:
+  database:
+    image: "postgres:16.0-alpine3.18"
+```
+
+3. Para setar o container basta escrever `docker compose up`, irá da erro pois agora precisamos configurar algumas informações. Sendo que a única variável de ambiente obrigatória é o POSTGRES_PASSWORD. Isso é feito no compose.yaml, desse modo temos o seguinte:
+
+```
+services:
+  database:
+    image: "postgres:16.0-alpine3.18"
+    environment:
+      POSTGRES_PASSWORD: "local_password"
+```
+
+Agora sim, temos um banco de dados pronto para receber conexões. Porém nosso container ainda está fechado (o container está fechado por dentro e não há como acessar por fora). Então iremos destruir o container para seguir com os próximos comandos.
+
+4. Desse modo, agora temos que instalar o postgresql-client para usar o psql (que permitirá acessar o container)
+
+5. Sendo assim, teremos que definir as portas do host:container dessa maneira no compose.yaml
+
+```
+services:
+  database:
+    image: "postgres:16.0-alpine3.18"
+    environment:
+      POSTGRES_PASSWORD: "local_password"
+    ports:
+      - "5432:5432"
+```
+
+(deve haver o espaço entre o hífen e as portas) 6. Agora iremos subir o container com docker compose up.
+
+7. Por fim, agora iremos definir as credenciais, localizações e porta do nosso banco de dados, para isso iremos rodar o seguinte comando:
+   `psql --host=localhost --username=postgres --port=5432`
+
+8. Irá ser requisitado a senha do postgres, aquela mesma que está na variável de ambiente. Basta digitá-la.
+   Agora nosso banco de dados está configurado e já sabemos como entrar nele usando o client do postgres.
+
+9. Para finalizar, iremos criar uma pasta infra no compose, para organizar nosso projeto de maneira adequada, mas para rodar o docker compose deverá ser usado o seguinte comando `docker compose up --file /infra/compose.yaml up`

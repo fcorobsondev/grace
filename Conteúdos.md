@@ -108,3 +108,12 @@ Tabela comparando diferentes DBMS, incluindo relacionais e não relacionais.
 | **Firebase**   | Não Relacional         | NoSQL (JSON)            | Backend como serviço, sincronização em tempo real                         | Apps mobile/web em tempo real         | Proprietário (Google)   |
 | **Cassandra**  | Não Relacional         | CQL                     | Alta escalabilidade e disponibilidade, projetado para grandes volumes     | Big Data, IoT, analytics distribuídos | Open Source             |
 | **Neo4j**      | Não Relacional (Graph) | Cypher                  | Otimizado para dados conectados (grafos), ótimo para redes sociais, mapas | Grafos, redes sociais, recomendação   | Open Source / Comercial |
+
+---------------------- Fase 2 - até a aula 16-----------------
+
+| Conceito       | O que é                                                                                | Para que serve                                                        | Exemplo/Analogia                                       |
+| -------------- | -------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------ |
+| **Docker**     | Plataforma que permite criar, empacotar e executar aplicações em contêineres.          | Facilita o desenvolvimento, teste e deploy em ambientes isolados.     | Como um "gerenciador de navios" com vários containers. |
+| **Dockerfile** | Arquivo de texto com instruções para criar uma imagem Docker.                          | Define o que vai ter dentro da imagem: SO, dependências, código etc.  | Como uma **receita de bolo** para criar uma imagem.    |
+| **Image**      | Um snapshot (cópia) imutável de um ambiente com tudo o que a aplicação precisa.        | Serve para criar containers sempre iguais, portáveis e reproduzíveis. | Como um **molde** para criar múltiplos containers.     |
+| **Container**  | Instância em execução de uma imagem. Leve, isolado e com tudo que a aplicação precisa. | Executa a aplicação de forma isolada e portátil.                      | Como um **bolo feito com a receita da imagem**.        |
