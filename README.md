@@ -344,3 +344,21 @@ services:
 ```
 
 3. Agora, para atualizar as variáveis, precisamos derrubar o docker e o server e subir ambos denovo. Desse modo está definido as variáveis de ambiente.
+
+4. Agora irei renomear o arquivo .env para .env.development e alterarei também o nome dele no arquivo compose.yaml
+
+## Utilizando absolute imports ao invés de realative imports no next.js
+
+1. Deve ser criado o arquivo jsconfig.json ou tsconfig.json (para projetos typescript), pois eles indicarão qual é a pasta raiz.
+
+2. Deve ser escrito o seguinte no jsconfig.json:
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": "."
+  }
+}
+```
+
+3. Agora quase todos os caminhos podem ser escritos de maneira absoluta.
