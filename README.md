@@ -362,3 +362,21 @@ services:
 ```
 
 3. Agora quase todos os caminhos podem ser escritos de maneira absoluta.
+
+## Configurando os scripts dos serviços
+
+1. Alterações nos scripts do package.json
+
+```json
+ "scripts": {
+    "dev": "npm run services:up && next dev",
+    "services:up": "docker compose -f infra/compose.yaml up -d",
+    "services:stop": "docker compose -f infra/compose.yaml stop",
+    "services:down": "docker compose -f infra/compose.yaml down",
+    "lint:check": "prettier --check .",
+    "lint:write": "prettier --write .",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:watch:ESM": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch"
+  },
+```
